@@ -1,0 +1,25 @@
+{
+  "deviceModels": [
+    {
+      "name": "Holding Tank",
+      "description": "Liquid holding tank.",
+      "manufacturer": "Simulation",
+      "type": "Node"
+    }
+  ],
+  "sensorModels": [
+    {
+      "type": "Digital",
+      "name": "Level",
+      "productCode": "SIM-TANKLEVEL-001",
+      "sensorMeasures": [
+        {
+          "name": "level",
+          "dataType": "Double",
+          "type": "LiquidLevel",
+          "unit": "NoUnit"
+        }
+      ]
+    }
+  ]
+}
