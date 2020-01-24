@@ -4,13 +4,17 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <None Remove="Infrastructure\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="AccountDefinition.json" />
     <None Remove="DeviceModelDefinition.json" />
     <None Remove="SampleRequest.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AccountDefinition.json" />
-    <EmbeddedResource Include="SampleRequest.json" />
     <EmbeddedResource Include="DeviceModelDefinition.json" />
   </ItemGroup>
   <ItemGroup>
@@ -26,8 +30,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ namespace FarmBeats.Partner.Management.Api.Model
         {
             string result = "";
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "FarmBeats.Management.Api.DeviceModelDefinition.json";
+            var resourceName = "FarmBeats.Partner.Management.Api.DeviceModelDefinition.json";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))

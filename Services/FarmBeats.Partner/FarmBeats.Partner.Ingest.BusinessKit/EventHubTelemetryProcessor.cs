@@ -26,7 +26,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                     var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);
 
                     // Replace these two lines with your processing logic.
-                    log.LogInformation($"C# Event Hub trigger function processed a message: {messageBody}");
+                    log.LogInformation($"Processing telemetry data point: SoilMoisture1={message.SoilMoisture1}, SoilMoisture2={message.SoilMoisture2}");
                     await Task.Yield();
                 }
                 catch (Exception e)
