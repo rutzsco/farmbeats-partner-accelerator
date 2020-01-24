@@ -39,6 +39,19 @@
           "unit": "Percentage"
         }
       ]
+    },
+    {
+      "type": "Digital",
+      "name": "Grove Ambient Light",
+      "productCode": "Grove-Ambient-Light-001",
+      "sensorMeasures": [
+        {
+          "name": "ambientlight",
+          "dataType": "Double",
+          "type": "UVIndex",
+          "unit": "Percentage"
+        }
+      ]
     }
   ]
 }
