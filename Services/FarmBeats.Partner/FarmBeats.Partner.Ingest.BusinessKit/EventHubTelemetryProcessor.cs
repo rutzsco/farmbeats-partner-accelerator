@@ -14,7 +14,8 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
     public static class EventHubTelemetryProcessor
     {
         [FunctionName("EventHubTelemetryProcessor")]
-        public static async Task Run([EventHubTrigger("Ingest", Connection = "EventHubConnectionString")] EventData[] events, ILogger log)
+        public static async Task Run([EventHubTrigger("Ingest", Connection = "EventHubInputConnectionString")] EventData[] events, 
+                                     [EventHub("sensor-partner-eh-00", Connection = "EventHubOutputConnectionString")]IAsyncCollector<FarmBeatsTelemetryModel> outputEvents, ILogger log)
         {
             var exceptions = new List<Exception>();
 
@@ -27,7 +28,15 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
                     // Replace these two lines with your processing logic.
                     log.LogInformation($"Processing telemetry data point: SoilMoisture1={message.SoilMoisture1}, SoilMoisture2={message.SoilMoisture2}");
-                    await Task.Yield();
+                    
+                    var st = new SensorTelemetry();
+                    st.id = "8096581b-90d8-447d-924b-4ef16b6fd40d";
+                    st.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), soilmoisture = Convert.ToDouble(message.SoilMoisture1) } };
+                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st });
+
+                    var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    log.LogInformation($"Output Message: {outMessage}");
+                    await outputEvents.AddAsync(telemetry);            
                 }
                 catch (Exception e)
                 {

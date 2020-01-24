@@ -10,6 +10,11 @@
               "name": "Main Holding Tank",
               "deviceModel": "Holding Tank",
               "sensorModel": "Level"
+            },
+            {
+              "name": "Business DevKit",
+              "deviceModel": "Indoor-M1",
+              "sensorModel": "Grove Soil Moisture"
             }
           ]
         }

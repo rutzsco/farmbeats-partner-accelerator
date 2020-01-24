@@ -26,6 +26,19 @@
           "unit": "NoUnit"
         }
       ]
+    },
+    {
+      "type": "Digital",
+      "name": "Grove Soil Moisture",
+      "productCode": "Grove-Soil-Moisture-001",
+      "sensorMeasures": [
+        {
+          "name": "soilmoisture",
+          "dataType": "Double",
+          "type": "SoilMoisture",
+          "unit": "Percentage"
+        }
+      ]
     }
   ]
 }
