@@ -32,6 +32,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
             // Execute
             var exceptions = new List<Exception>();
             var targetSensorConfiguration = await farmBeatsClient.GetSensorModels();
+            var targetDeviceConfiguration = await farmBeatsClient.GetDeviceModel("Indoor-M1");
             foreach (EventData eventData in events)
             {
                 try
@@ -42,7 +43,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                     
                     var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
                     var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(message);
-                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", fbTelemetry);
+                    var telemetry = new FarmBeatsTelemetryModel(targetDeviceConfiguration.id, fbTelemetry);
 
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     log.LogInformation($"Output Message: {outMessage}");
