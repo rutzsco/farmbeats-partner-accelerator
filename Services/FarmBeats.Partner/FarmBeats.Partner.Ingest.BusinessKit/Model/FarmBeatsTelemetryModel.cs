@@ -43,6 +43,6 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
         public double? ambientlight { get; set; }
 
-        
+        public double? airPressure { get; set; }
     }
 }
