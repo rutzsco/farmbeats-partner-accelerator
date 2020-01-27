@@ -40,7 +40,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
                     var st3 = new SensorTelemetry();
                     st3.id = "4c300af4-906d-42e0-aace-de59d8db694b";
-                    st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.AirPressure) } };
+                    st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airPressure = Convert.ToDouble(message.AirPressure) } };
 
                     var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st, st2, st3 });
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
