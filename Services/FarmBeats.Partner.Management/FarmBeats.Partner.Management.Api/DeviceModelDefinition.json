@@ -65,6 +65,19 @@
           "unit": "Pascal"
         }
       ]
+    },
+    {
+      "type": "Digital",
+      "name": "Grove Air Humidity",
+      "productCode": "Grove-Air-Humidity-001",
+      "sensorMeasures": [
+        {
+          "name": "airHumidity",
+          "dataType": "Double",
+          "type": "RelativeHumidity",
+          "unit": "Percentage"
+        }
+      ]
     }
   ]
 }

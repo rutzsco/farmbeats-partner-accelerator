@@ -42,7 +42,11 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                     st3.id = "4c300af4-906d-42e0-aace-de59d8db694b";
                     st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airPressure = Convert.ToDouble(message.AirPressure) } };
 
-                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st, st2, st3 });
+                    var st4 = new SensorTelemetry();
+                    st4.id = "7c88953b-a4a8-4dc3-9d93-85a96f445ae6";
+                    st4.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airHumidity = Convert.ToDouble(message.AirHumidity) } };
+
+                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st, st2, st3, st4 });
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     log.LogInformation($"Output Message: {outMessage}");
                     await outputEvents.AddAsync(telemetry);            
