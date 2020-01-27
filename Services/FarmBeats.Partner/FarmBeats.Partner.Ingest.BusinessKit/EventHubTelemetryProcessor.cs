@@ -25,7 +25,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                 {
                     var messageBody = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
                     var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);
-                    log.LogInformation($"Input Message: {message}");
+                    log.LogInformation($"Input Message: {messageBody}");
 
                     // Replace these two lines with your processing logic.
                     //log.LogInformation($"Processing telemetry data point: SoilMoisture1={message.SoilMoisture1}, SoilMoisture2={message.SoilMoisture2}");
