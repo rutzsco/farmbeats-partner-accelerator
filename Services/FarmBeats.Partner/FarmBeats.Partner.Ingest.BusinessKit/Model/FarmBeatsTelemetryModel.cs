@@ -40,5 +40,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
         public double? level { get; set; }
 
         public double? soilmoisture { get; set; }
+
+        public double? ambientlight { get; set; }
+
+        
     }
 }

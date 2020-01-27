@@ -33,8 +33,12 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                     var st = new SensorTelemetry();
                     st.id = "8096581b-90d8-447d-924b-4ef16b6fd40d";
                     st.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), soilmoisture = Convert.ToDouble(message.SoilMoisture1) } };
-                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st });
 
+                    var st2 = new SensorTelemetry();
+                    st2.id = "a7af7283-9cd7-4c26-ab5c-3ecfe9d58acf";
+                    st2.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.Light) } };
+
+                    var telemetry = new FarmBeatsTelemetryModel("99800e4b-dc28-4ea8-b742-6a7a71861a8e", new[] { st });
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     log.LogInformation($"Output Message: {outMessage}");
                     await outputEvents.AddAsync(telemetry);            
