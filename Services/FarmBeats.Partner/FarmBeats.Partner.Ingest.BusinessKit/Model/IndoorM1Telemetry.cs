@@ -38,7 +38,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
         public IndoorM1DeviceInstanceDefinition(IEnumerable<SensorModel> sensors)
         {
-            _sensorsByName = sensors.ToDictionary(x => x.productCode, x => x);
+            _sensorsByName = sensors.GroupBy(a => a.name)
+                .Select(g => g.First())
+                .ToDictionary(x => x.name, x => x);
         }
 
         public IEnumerable<SensorTelemetry> MapToFarmBeatsTelemetryModel(IndoorM1Telemetry message)
