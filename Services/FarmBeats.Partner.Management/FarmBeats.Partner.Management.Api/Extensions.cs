@@ -11,10 +11,10 @@ namespace FarmBeats.Partner.Management.Api
     {
         public static async Task<AuthenticationResult> GetS2SAccessToken(this IConfigurationRoot config)
         {
-            var clientId = config["ClientId"];
-            var clientSecret = config["ClientSecret"];
-            var resource = config["Resource"];
-            var authority = config["Authority"];
+            var clientId = config["PartnerSpClientId"];
+            var clientSecret = config["PartnerSpClientSecret"];
+            var resource = config["PartnerSpResource"];
+            var authority = config["PartnerSpAuthority"];
 
             var clientCredential = new ClientCredential(clientId, clientSecret);
             AuthenticationContext context = new AuthenticationContext(authority, false);

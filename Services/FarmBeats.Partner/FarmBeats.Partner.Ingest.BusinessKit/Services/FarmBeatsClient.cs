@@ -45,6 +45,12 @@ namespace FarmBeats.Partner.Management.Api.Services
 
             return null;
         }
+
+        public async Task<IEnumerable<SensorModel>> GetSensorModels()
+        {
+            var list = await GetList<SensorModel>("SensorModel");
+            return list;
+        }
         public async Task<SensorModel> CreateSensorModel(SensorModel sensorModel)
         {
             var list = await GetList<SensorModel>("SensorModel");
