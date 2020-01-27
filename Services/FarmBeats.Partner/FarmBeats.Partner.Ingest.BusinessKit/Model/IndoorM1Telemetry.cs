@@ -26,10 +26,10 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
     public static class IndoorM1DeviceSensorMappings
     {
-        public static string SoilMoisture1 = "";
-        public static string Light = "";
-        public static string AirPressure = "";
-        public static string AirHumidity = "";
+        public static string SoilMoisture1 = "Grove Soil Moisture";
+        public static string Light = "Grove Ambient Light";
+        public static string AirPressure = "Grove Air Pressure";
+        public static string AirHumidity = "Grove Air Humidity";
     }
 
     public class IndoorM1DeviceInstanceDefinition
