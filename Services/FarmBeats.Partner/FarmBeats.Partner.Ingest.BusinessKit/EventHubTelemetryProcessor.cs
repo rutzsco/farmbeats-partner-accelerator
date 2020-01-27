@@ -32,7 +32,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
             // Execute
             var exceptions = new List<Exception>();
             var targetSensorConfiguration = await farmBeatsClient.GetSensorModels();
-            var targetDeviceConfiguration = await farmBeatsClient.GetDeviceModel("Indoor-M1");
+            var targetDeviceConfiguration = await farmBeatsClient.GetDevice("Business DevKitIndoor-M1");
             foreach (EventData eventData in events)
             {
                 try
