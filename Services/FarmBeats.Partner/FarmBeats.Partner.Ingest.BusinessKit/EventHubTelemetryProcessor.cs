@@ -39,8 +39,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                 {
                     var messageBody = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
                     var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);
-                    log.LogInformation($"Input Message: {messageBody}");
-                    
+                    log.LogInformation($"Input Message: {messageBody} Property Keys: {string.Join(",", eventData.Properties.Keys)}  Property Values: { string.Join(",", eventData.Properties.Values)}");
+
+
                     var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
                     var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(message);
                     var telemetry = new FarmBeatsTelemetryModel(targetDeviceConfiguration.id, fbTelemetry);
