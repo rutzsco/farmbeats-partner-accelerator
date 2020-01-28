@@ -26,7 +26,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
     public static class IndoorM1DeviceSensorMappings
     {
-        public static string SoilMoisture1 = "EastChain - Business DevKitGrove Soil Moisture";
+        public static string SoilMoisture1 = "Grove Soil Moisture";
         public static string Light = "Grove Ambient Light";
         public static string AirPressure = "Grove Air Pressure";
         public static string AirHumidity = "Grove Air Humidity";
@@ -43,12 +43,12 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
                 .ToDictionary(x => x.name, x => x);
         }
 
-        public IEnumerable<SensorTelemetry> MapToFarmBeatsTelemetryModel(IndoorM1Telemetry message)
+        public IEnumerable<SensorTelemetry> MapToFarmBeatsTelemetryModel(string deviceName, IndoorM1Telemetry message)
         {
 
             var st = new SensorTelemetry();
             //st.id = "8096581b-90d8-447d-924b-4ef16b6fd40d";
-            st.id = _sensorsByName[IndoorM1DeviceSensorMappings.SoilMoisture1].id;
+            st.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.SoilMoisture1].id;
             st.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), soilmoisture = Convert.ToDouble(message.SoilMoisture1) } };
 
             //var st2 = new SensorTelemetry();

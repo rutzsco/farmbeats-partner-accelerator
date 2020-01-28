@@ -20,7 +20,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
         [FunctionName("EventHubTelemetryProcessor")]
         public static async Task Run([EventHubTrigger("Ingest", Connection = "EventHubInputConnectionString")] EventData[] events, 
-                                     [EventHub("sensor-partner-eh-00", Connection = "EventHubOutputConnectionString")]IAsyncCollector<FarmBeatsTelemetryModel> outputEvents, ILogger log, ExecutionContext executionContext)
+                                     [EventHub("sensor-partner-eh-00", Connection = "EventHubOutputConnectionString")]IAsyncCollector<string> outputEvents, ILogger log, ExecutionContext executionContext)
         {
             
             // Initialize dependancies
@@ -31,8 +31,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
             // Execute
             var exceptions = new List<Exception>();
+            var instanceName = "EastChain - Business DevKit";
             var targetSensorConfiguration = await farmBeatsClient.GetSensors();
-            var targetDeviceConfiguration = await farmBeatsClient.GetDevice("EastChain - Business DevKitIndoor-M1");
+            var targetDeviceConfiguration = await farmBeatsClient.GetDevice(instanceName + "Indoor-M1");
             foreach (EventData eventData in events)
             {
                 try
@@ -43,12 +44,12 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
 
                     var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
-                    var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(message);
+                    var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(instanceName, message);
                     var telemetry = new FarmBeatsTelemetryModel(targetDeviceConfiguration.id, fbTelemetry);
 
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     log.LogInformation($"Output Message: {outMessage}");
-                    await outputEvents.AddAsync(telemetry);            
+                    await outputEvents.AddAsync(outMessage);            
                 }
                 catch (Exception e)
                 {
