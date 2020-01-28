@@ -32,22 +32,29 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
             // Execute
             var exceptions = new List<Exception>();
-            var instanceName = "EastChain - Business DevKit";
             var targetSensorConfiguration = await farmBeatsClient.GetSensors();
-            var targetDeviceConfiguration = await farmBeatsClient.GetDevice(instanceName + "Indoor-M1");
+            
             foreach (EventData eventData in events)
             {
                 try
                 {
+                    // Parse message
                     var messageBody = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-                    var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);
                     log.LogInformation($"Input Message: {messageBody} Property Keys: {string.Join(",", eventData.SystemProperties.Keys)}  Property Values: { string.Join(",", eventData.SystemProperties.Values)}");
 
+                    var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);                 
+                    var deviceId = (string)eventData.SystemProperties["iothub-connection-device-id"];
 
+                    // Contextualize - resolve device type and associated farmbeats device instance
+                    var deviceDefinition = DeviceInstanceDefinition.All.First(x => x.DeviceId == deviceId);
+                    var farmBeatsDeviceConfiguration = await farmBeatsClient.GetDevice(deviceDefinition.Name + deviceDefinition.Type);
+
+                    // Convert to FarmBeats Telemetry Message
                     var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
-                    var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(instanceName, message);
-                    var telemetry = new FarmBeatsTelemetryModel(targetDeviceConfiguration.id, fbTelemetry);
-
+                    var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(deviceDefinition.Name, message);
+                    var telemetry = new FarmBeatsTelemetryModel(farmBeatsDeviceConfiguration.id, fbTelemetry);
+                    
+                    // Send to FarmBeats EventHub
                     var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     log.LogInformation($"Output Message: {outMessage}");
                     await outputEvents.AddAsync(outMessage);            
