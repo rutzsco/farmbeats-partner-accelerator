@@ -25,6 +25,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
             
             // Initialize dependancies
             var config = executionContext.BuildConfiguraion();
+
             var token = await Extensions.GetS2SAccessToken(config);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
             var farmBeatsClient = new FarmBeatsClient(config["FarmBeatsApiUrl"], _httpClient);
