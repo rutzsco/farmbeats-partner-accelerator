@@ -13,9 +13,9 @@ namespace FarmBeats.Partner.Management.Api.Model
         public DeviceModel()
         {
         }
-        public DeviceModel(string type, string manufacturer, string name, string description)
+        public DeviceModel(string id, string type, string manufacturer, string name, string description)
         {
-            this.id = "2421c7bc-0ca5-41b1-ab82-fa1c2081c889";
+            this.id = id;
             this.type = type;
             this.manufacturer = manufacturer;
             this.name = name;

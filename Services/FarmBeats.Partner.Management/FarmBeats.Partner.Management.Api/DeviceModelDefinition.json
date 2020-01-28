@@ -1,12 +1,6 @@
 {
   "deviceModels": [
     {
-      "name": "Holding Tank",
-      "description": "Liquid holding tank.",
-      "manufacturer": "Simulation",
-      "type": "Node"
-    },
-    {
       "name": "Indoor-M1",
       "description": "Raspberry Pi with Light, Soil Moisture, Air Temperature, Humidity, and Barometric Pressure sensors.",
       "manufacturer": "Microsoft FarmBeats Business Kit",
@@ -14,19 +8,6 @@
     }
   ],
   "sensorModels": [
-    {
-      "type": "Digital",
-      "name": "Level",
-      "productCode": "SIM-TANKLEVEL-001",
-      "sensorMeasures": [
-        {
-          "name": "level",
-          "dataType": "Double",
-          "type": "LiquidLevel",
-          "unit": "NoUnit"
-        }
-      ]
-    },
     {
       "type": "Digital",
       "name": "Grove Soil Moisture",

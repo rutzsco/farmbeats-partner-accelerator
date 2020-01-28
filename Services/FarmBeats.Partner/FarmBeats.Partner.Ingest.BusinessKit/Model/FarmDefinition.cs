@@ -6,7 +6,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 {
     public class FarmDefinition
     {
-        public static FarmDefinition EastChain = new FarmDefinition("EastChain", new DeviceInstanceDefinition("", "99800e4b-dc28-4ea8-b742-6a7a71861a8e"));
+        public static FarmDefinition EastChain = new FarmDefinition("EastChain", new DeviceInstanceDefinition("", "329591e0-1107-4b7a-a69c-7be83dd57aef"));
 
         public FarmDefinition(string name, DeviceInstanceDefinition deviceInstanceDefinition)
         {
