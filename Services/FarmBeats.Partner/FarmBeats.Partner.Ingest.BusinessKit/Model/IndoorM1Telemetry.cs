@@ -26,7 +26,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
     public static class IndoorM1DeviceSensorMappings
     {
-        public static string SoilMoisture1 = "Grove Soil Moisture";
+        public static string SoilMoisture1 = "EastChain - Business DevKitGrove Soil Moisture";
         public static string Light = "Grove Ambient Light";
         public static string AirPressure = "Grove Air Pressure";
         public static string AirHumidity = "Grove Air Humidity";
@@ -34,9 +34,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
     public class IndoorM1DeviceInstanceDefinition
     {
-        private static Dictionary<string, SensorModel> _sensorsByName;
+        private static Dictionary<string, Sensor> _sensorsByName;
 
-        public IndoorM1DeviceInstanceDefinition(IEnumerable<SensorModel> sensors)
+        public IndoorM1DeviceInstanceDefinition(IEnumerable<Sensor> sensors)
         {
             _sensorsByName = sensors.GroupBy(a => a.name)
                 .Select(g => g.First())

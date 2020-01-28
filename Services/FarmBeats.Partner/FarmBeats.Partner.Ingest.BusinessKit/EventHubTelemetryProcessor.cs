@@ -31,7 +31,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
             // Execute
             var exceptions = new List<Exception>();
-            var targetSensorConfiguration = await farmBeatsClient.GetSensorModels();
+            var targetSensorConfiguration = await farmBeatsClient.GetSensors();
             var targetDeviceConfiguration = await farmBeatsClient.GetDevice("EastChain - Business DevKitIndoor-M1");
             foreach (EventData eventData in events)
             {

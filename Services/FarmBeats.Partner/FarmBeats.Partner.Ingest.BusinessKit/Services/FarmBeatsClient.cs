@@ -93,6 +93,12 @@ namespace FarmBeats.Partner.Management.Api.Services
             return response;
         }
 
+        public async Task<IEnumerable<Sensor>> GetSensors()
+        {
+            var list = await GetList<Sensor>("Sensor");
+            return list;
+        }
+
         private async Task<T> Post<T>(T request, string resource)
         {
             var url = _farmBeatsUrl + resource;
