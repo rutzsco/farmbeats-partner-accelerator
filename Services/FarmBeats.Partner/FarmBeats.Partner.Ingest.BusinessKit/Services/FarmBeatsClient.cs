@@ -20,52 +20,52 @@ namespace FarmBeats.Partner.Management.Api.Services
             _farmBeatsUrl = farmBeatsUrl;
         }
 
-        public async Task<DeviceModel> GetDeviceModel(string name)
-        {
-            var list = await GetList<DeviceModel>("DeviceModel");
-            if (list.Any(x => x.name == name))
-                return list.First(x => x.name == name);
+        //public async Task<DeviceModel> GetDeviceModel(string name)
+        //{
+        //    var list = await GetList<DeviceModel>("DeviceModel");
+        //    if (list.Any(x => x.name == name))
+        //        return list.First(x => x.name == name);
 
-            return null;
-        }
-        public async Task<DeviceModel> CreateDeviceModel(DeviceModel deviceModel)
-        {
-            var list = await GetList<DeviceModel>("DeviceModel");
-            if (list.Any(x => x.name == deviceModel.name))
-                return list.First(x => x.name == deviceModel.name);
+        //    return null;
+        //}
+        //public async Task<DeviceModel> CreateDeviceModel(DeviceModel deviceModel)
+        //{
+        //    var list = await GetList<DeviceModel>("DeviceModel");
+        //    if (list.Any(x => x.name == deviceModel.name))
+        //        return list.First(x => x.name == deviceModel.name);
 
-            var response = await Post(deviceModel, "DeviceModel");
-            return response;
-        }
-        public async Task<SensorModel> GetSensorModel(string name)
-        {
-            var list = await GetList<SensorModel>("SensorModel");
-            if (list.Any(x => x.name == name))
-                return list.Single(x => x.name == name);
+        //    var response = await Post(deviceModel, "DeviceModel");
+        //    return response;
+        //}
+        //public async Task<SensorModel> GetSensorModel(string name)
+        //{
+        //    var list = await GetList<SensorModel>("SensorModel");
+        //    if (list.Any(x => x.name == name))
+        //        return list.Single(x => x.name == name);
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        public async Task<IEnumerable<SensorModel>> GetSensorModels()
-        {
-            var list = await GetList<SensorModel>("SensorModel");
-            return list;
-        }
-        public async Task<SensorModel> CreateSensorModel(SensorModel sensorModel)
-        {
-            var list = await GetList<SensorModel>("SensorModel");
-            if (list.Any(x => x.name == sensorModel.name))
-                return list.Single(x => x.name == sensorModel.name);
+        //public async Task<IEnumerable<SensorModel>> GetSensorModels()
+        //{
+        //    var list = await GetList<SensorModel>("SensorModel");
+        //    return list;
+        //}
+        //public async Task<SensorModel> CreateSensorModel(SensorModel sensorModel)
+        //{
+        //    var list = await GetList<SensorModel>("SensorModel");
+        //    if (list.Any(x => x.name == sensorModel.name))
+        //        return list.Single(x => x.name == sensorModel.name);
 
-            var response = await Post(sensorModel, "SensorModel");
-            return response;
-        }
+        //    var response = await Post(sensorModel, "SensorModel");
+        //    return response;
+        //}
 
-        public async Task<Farm> GetFarm(string name)
-        {
-            var list = await GetList<Farm>("Farm");
-            return list.First(x => x.name == name);
-        }
+        //public async Task<Farm> GetFarm(string name)
+        //{
+        //    var list = await GetList<Farm>("Farm");
+        //    return list.First(x => x.name == name);
+        //}
 
         public async Task<Device> GetDevice(string name)
         {
@@ -73,25 +73,25 @@ namespace FarmBeats.Partner.Management.Api.Services
             return list.First(x => x.name == name);
         }
 
-        public async Task<Device> CreateDevice(Device device)
-        {
-            var list = await GetList<Device>("Device");
-            if (list.Any(x => x.name == device.name))
-                return list.First(x => x.name == device.name);
+        //public async Task<Device> CreateDevice(Device device)
+        //{
+        //    var list = await GetList<Device>("Device");
+        //    if (list.Any(x => x.name == device.name))
+        //        return list.First(x => x.name == device.name);
 
-            var response = await Post(device, "Device");
-            return response;
-        }
+        //    var response = await Post(device, "Device");
+        //    return response;
+        //}
 
-        public async Task<Sensor> CreateSensor(Sensor sensor)
-        {
-            var list = await GetList<Sensor>("Sensor");
-            if (list.Any(x => x.name == sensor.name))
-                return list.First(x => x.name == sensor.name);
+        //public async Task<Sensor> CreateSensor(Sensor sensor)
+        //{
+        //    var list = await GetList<Sensor>("Sensor");
+        //    if (list.Any(x => x.name == sensor.name))
+        //        return list.First(x => x.name == sensor.name);
 
-            var response = await Post(sensor, "Sensor");
-            return response;
-        }
+        //    var response = await Post(sensor, "Sensor");
+        //    return response;
+        //}
 
         public async Task<IEnumerable<Sensor>> GetSensors()
         {
