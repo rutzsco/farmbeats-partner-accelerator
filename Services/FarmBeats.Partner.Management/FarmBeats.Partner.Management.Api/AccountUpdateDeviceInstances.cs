@@ -35,10 +35,13 @@ namespace FarmBeats.Partner.Management.Api
                 foreach (var device in farm.devices)
                 {
                     var deviceModel = fb.GetDeviceModel(device.deviceModel).Result;
-                    var sensorModel = fb.GetSensorModel(device.sensorModel).Result;
+                    var deviceDetail = await fb.CreateDevice(new Device(Guid.NewGuid().ToString(), deviceModel.id, farm.id, new Location(0, 0), device.name + deviceModel.name));
 
-                    var deviceDetail = await fb.CreateDevice(new Device(Guid.NewGuid().ToString(), deviceModel.id, farm.id, new Location(0,0), device.name + deviceModel.name));
-                    var sensor = await fb.CreateSensor(new Sensor(Guid.NewGuid().ToString(), sensorModel.id, deviceDetail.id, device.name + sensorModel.name));
+                    foreach (var sensor in device.sensors)
+                    {
+                        var sensorModel = fb.GetSensorModel(sensor).Result;
+                        await fb.CreateSensor(new Sensor(Guid.NewGuid().ToString(), sensorModel.id, deviceDetail.id, device.name + sensorModel.name));
+                    }
                 }                 
             }
 

@@ -47,14 +47,12 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
         {
 
             var st = new SensorTelemetry();
-            //st.id = "8096581b-90d8-447d-924b-4ef16b6fd40d";
             st.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.SoilMoisture1].id;
             st.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), soilmoisture = Convert.ToDouble(message.SoilMoisture1) } };
 
-            //var st2 = new SensorTelemetry();
-            ////st2.id = "a7af7283-9cd7-4c26-ab5c-3ecfe9d58acf";
-            //st2.id = _sensorsByName[IndoorM1DeviceSensorMappings.Light].id;
-            //st2.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.Light) } };
+            var st2 = new SensorTelemetry();
+            st2.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.Light].id;
+            st2.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.Light) } };
 
             //var st3 = new SensorTelemetry();
             ////st3.id = "4c300af4-906d-42e0-aace-de59d8db694b";
@@ -67,7 +65,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
             //st4.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airHumidity = Convert.ToDouble(message.AirHumidity) } };
 
             //return new List<SensorTelemetry>() { st , st2 , st3, st4 };
-            return new List<SensorTelemetry>() { st };
+            return new List<SensorTelemetry>() { st, st2 };
         }
     }
 }

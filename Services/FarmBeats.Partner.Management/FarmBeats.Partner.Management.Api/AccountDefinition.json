@@ -9,7 +9,7 @@
             {
               "name": "Business DevKit",
               "deviceModel": "Indoor-M1",
-              "sensorModel": "Grove Soil Moisture"
+              "sensors": [ "Grove Soil Moisture", "Grove Air Humidity" ]
             }
           ]
         }
