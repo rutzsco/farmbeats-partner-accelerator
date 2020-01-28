@@ -55,11 +55,11 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
             st2.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.Light) } };
 
             var st3 = new SensorTelemetry();
-            st3.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirPressure].id;
+            st3.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.AirPressure].id;
             st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airPressure = Convert.ToDouble(message.AirPressure) } };
 
             var st4 = new SensorTelemetry();
-            st4.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirHumidity].id;
+            st4.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.AirHumidity].id;
             st4.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airHumidity = Convert.ToDouble(message.AirHumidity) } };
 
             return new List<SensorTelemetry>() { st , st2 , st3, st4 };
