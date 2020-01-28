@@ -54,18 +54,15 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
             st2.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.Light].id;
             st2.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), ambientlight = Convert.ToDouble(message.Light) } };
 
-            //var st3 = new SensorTelemetry();
-            ////st3.id = "4c300af4-906d-42e0-aace-de59d8db694b";
-            //st3.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirPressure].id;
-            //st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airPressure = Convert.ToDouble(message.AirPressure) } };
+            var st3 = new SensorTelemetry();
+            st3.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirPressure].id;
+            st3.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airPressure = Convert.ToDouble(message.AirPressure) } };
 
-            //var st4 = new SensorTelemetry();
-            ////st4.id = "7c88953b-a4a8-4dc3-9d93-85a96f445ae6";
-            //st4.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirHumidity].id;
-            //st4.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airHumidity = Convert.ToDouble(message.AirHumidity) } };
+            var st4 = new SensorTelemetry();
+            st4.id = _sensorsByName[IndoorM1DeviceSensorMappings.AirHumidity].id;
+            st4.sensordata = new[] { new SensorData() { timestamp = DateTime.UtcNow.ToString("o"), airHumidity = Convert.ToDouble(message.AirHumidity) } };
 
-            //return new List<SensorTelemetry>() { st , st2 , st3, st4 };
-            return new List<SensorTelemetry>() { st, st2 };
+            return new List<SensorTelemetry>() { st , st2 , st3, st4 };
         }
     }
 }
