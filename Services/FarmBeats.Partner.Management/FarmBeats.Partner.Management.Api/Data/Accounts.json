@@ -12,8 +12,7 @@
           "devices": [
             {
               "name": "EastChain - Business DevKitIndoor-M1",
-              "deviceModel": "Indoor-M1",
-              "sensors": [ "Grove Soil Moisture", "Grove Air Humidity" ]
+              "deviceModel": "Indoor-M1"
             }
           ]
         }

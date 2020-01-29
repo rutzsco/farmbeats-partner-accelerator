@@ -1,5 +1,4 @@
-{
-  [
+[
     {
       "name": "Indoor-M1",
       "description": "Raspberry Pi with Light, Soil Moisture, Air Temperature, Humidity, and Barometric Pressure sensors.",
@@ -7,6 +6,5 @@
       "type": "Node",
       "sensorModels": [ "Grove Soil Moisture", "Grove Ambient Light", "Grove Air Pressure", "Grove Air Humidity" ]
     }
-  ]
-}
+]
   
