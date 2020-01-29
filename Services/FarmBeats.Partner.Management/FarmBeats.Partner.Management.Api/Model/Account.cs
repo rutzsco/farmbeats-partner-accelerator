@@ -4,9 +4,20 @@ using System.Text;
 
 namespace FarmBeats.Partner.Management.Api.Model
 {
-    public class AccountConfigurationSummary
+    public class Account
     {
         public string name { get; set; }
+
+        public string Url { get; set; }
+
+        public string ClientId { get; set; }
+
+        public string ClientSecretSettingName { get; set; }
+
+        public string Resource { get; set; }
+
+        public string Authority { get; set; }
+
 
         public IEnumerable<FarmSummary> farms { get; set; }
     }

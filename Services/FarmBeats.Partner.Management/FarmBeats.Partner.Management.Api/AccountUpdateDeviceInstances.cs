@@ -11,6 +11,7 @@ using FarmBeats.Partner.Management.Api.Model;
 using System.Net.Http;
 using FarmBeats.Partner.Management.Api.Services;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace FarmBeats.Partner.Management.Api
 {
@@ -19,18 +20,18 @@ namespace FarmBeats.Partner.Management.Api
         private static readonly HttpClient _httpClient = new HttpClient();
 
         [FunctionName("AccountUpdateDeviceInstances")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function,  "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function,  "post", Route = null)] HttpRequest req, ILogger log, ExecutionContext executionContext)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
- 
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var request = JsonConvert.DeserializeObject<AccountUpdateDeviceInstancesCommand>(requestBody);
+            
+            var config = executionContext.BuildConfiguraion();
+            var account  = AccountConfigration.Load().First();
 
-            var token = await Extensions.GetS2SAccessToken(request.Credentials.ClientId, request.Credentials.ClientSecret, request.Credentials.Resource, request.Credentials.Authority);
+            var token = await Extensions.GetS2SAccessToken(account.ClientId, config[account.ClientSecretSettingName], account.Resource, account.Authority);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
 
-            var fb = new FarmBeatsClient(request.Credentials.Url, _httpClient);
-            foreach (var farm in request.AccountConfiguration.farms)
+            var fb = new FarmBeatsClient(account.Url, _httpClient);
+            foreach (var farm in account.farms)
             {
                 foreach (var device in farm.devices)
                 {

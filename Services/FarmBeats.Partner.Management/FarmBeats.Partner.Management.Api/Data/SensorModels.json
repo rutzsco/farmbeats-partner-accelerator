@@ -1,12 +1,4 @@
 {
-  "deviceModels": [
-    {
-      "name": "Indoor-M1",
-      "description": "Raspberry Pi with Light, Soil Moisture, Air Temperature, Humidity, and Barometric Pressure sensors.",
-      "manufacturer": "Microsoft FarmBeats Business Kit",
-      "type": "Node"
-    }
-  ],
   "sensorModels": [
     {
       "type": "Digital",

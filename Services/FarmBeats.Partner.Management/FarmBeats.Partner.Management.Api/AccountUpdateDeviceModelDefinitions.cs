@@ -11,27 +11,27 @@ using FarmBeats.Partner.Management.Api.Model;
 using System.Net.Http;
 using FarmBeats.Partner.Management.Api.Services;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace FarmBeats.Partner.Management.Api
 {
     public static class AccountUpdateDeviceModelDefinitions
     {
-        private static HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         [FunctionName("AccountUpdateDeviceModelDefinitions")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function,  "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function,  "post", Route = null)] HttpRequest req, ILogger log, ExecutionContext executionContext)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
- 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var request = JsonConvert.DeserializeObject<AccountCredentials>(requestBody);
 
-            var token = await Extensions.GetS2SAccessToken(request.ClientId, request.ClientSecret, request.Resource, request.Authority);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-
+            var config = executionContext.BuildConfiguraion();
+            var account = AccountConfigration.Load().First();
             var deviceDefinition = DeviceDefinition.Load();
 
-            var fb = new FarmBeatsClient(request.Url, _httpClient);
+            var token = await Extensions.GetS2SAccessToken(account.ClientId, config[account.ClientSecretSettingName], account.Resource, account.Authority);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+
+            var fb = new FarmBeatsClient(account.Url, _httpClient);
 
             foreach (var dm in deviceDefinition.deviceModels)
             {
@@ -43,7 +43,7 @@ namespace FarmBeats.Partner.Management.Api
                 await fb.CreateSensorModel(sm);
             }
 
-            return new OkObjectResult("");
+            return new OkObjectResult("OK");
         }
     }
 }
