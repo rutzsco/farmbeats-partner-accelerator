@@ -1,8 +1,8 @@
-﻿using FarmBeats.Partner.Management.Api.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmBeats.Common.Model;
 
 namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 {

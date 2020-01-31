@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FarmBeats.Partner.Management.Api.Model
+namespace FarmBeats.Common.Model
 {
     public class ListingResponse<T>
     {
