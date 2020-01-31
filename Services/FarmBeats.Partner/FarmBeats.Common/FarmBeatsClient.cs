@@ -64,10 +64,16 @@ namespace FarmBeats.Common
             return list.First(x => x.name == name);
         }
 
+        public async Task<Device> GetDeviceByHardwareId(string hardwareId)
+        {
+            var list = await GetList<Device>("Device");
+            return list.SingleOrDefault(x => x.hardwareId == hardwareId);
+        }
+
         public async Task<Device> GetDevice(string name)
         {
             var list = await GetList<Device>("Device");
-            return list.First(x => x.name == name);
+            return list.SingleOrDefault(x => x.name == name);
         }
 
         public async Task<Device> CreateDevice(Device device)

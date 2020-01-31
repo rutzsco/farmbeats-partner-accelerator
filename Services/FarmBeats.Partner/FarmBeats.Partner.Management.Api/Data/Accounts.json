@@ -11,8 +11,9 @@
           "name": "EastChain",
           "devices": [
             {
-              "name": "EastChain - Business DevKitIndoor-M1",
-              "deviceModel": "Indoor-M1"
+              "name": "EastChain - Indoor-M1",
+              "deviceModel": "Indoor-M1",
+              "hardwareId": "b827eb2f6557"
             }
           ]
         }

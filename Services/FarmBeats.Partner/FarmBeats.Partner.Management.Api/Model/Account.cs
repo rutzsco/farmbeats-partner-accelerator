@@ -33,5 +33,6 @@ namespace FarmBeats.Partner.Management.Api.Model
     {
         public string name { get; set; }
         public string deviceModel { get; set; }
+        public string hardwareId { get; set; }
     }
 }

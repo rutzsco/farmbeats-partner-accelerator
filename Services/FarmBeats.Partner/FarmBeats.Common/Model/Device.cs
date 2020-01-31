@@ -9,13 +9,14 @@ namespace FarmBeats.Common.Model
 {
     public class Device
     {
-        public Device(string hardwareId, string deviceModelId, string farmId, Location location, string name)
+        public Device(string hardwareId, string deviceModelId, string farmId, Location location, string name, int reportingInterval)
         {
             this.hardwareId = hardwareId;
             this.deviceModelId = deviceModelId;
             this.farmId = farmId;
             this.location = location;
             this.name = name;
+            this.reportingInterval = reportingInterval;
         }
 
         public string id { get; set; }
@@ -26,6 +27,8 @@ namespace FarmBeats.Common.Model
 
         public string farmId { get; set; }
 
+        public int reportingInterval { get; set; }
+        
         public Location location { get; set; }
 
         public string name { get; set; }

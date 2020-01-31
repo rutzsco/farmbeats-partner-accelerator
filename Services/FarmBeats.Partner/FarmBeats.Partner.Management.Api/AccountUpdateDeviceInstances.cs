@@ -38,7 +38,7 @@ namespace FarmBeats.Partner.Management.Api
                 foreach (var device in farm.devices)
                 {
                     var deviceModel = fb.GetDeviceModel(device.deviceModel).Result;
-                    var deviceDetail = await fb.CreateDevice(new Device(Guid.NewGuid().ToString(), deviceModel.id, farm.id, new Location(0, 0), device.name + deviceModel.name));
+                    var deviceDetail = await fb.CreateDevice(new Device(device.hardwareId, deviceModel.id, farm.id, new Location(0, 0), device.name, 300));
 
                     var sensorModels = devicedefinitions.deviceModels.Single(x => x.name == deviceModel.name).sensorModels;
                     foreach (var sensor in sensorModels)

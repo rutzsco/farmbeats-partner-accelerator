@@ -44,17 +44,16 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
                     var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);                 
                     var deviceId = (string)eventData.SystemProperties["iothub-connection-device-id"];
-                    var deviceDefinition = DeviceInstanceDefinition.All.SingleOrDefault(x => x.DeviceId == deviceId);
+                    var deviceDefinition = await farmBeatsClient.GetDeviceByHardwareId(deviceId);
 
+                    // Contextualize - resolve device type and associated farmbeats device instance
                     if (deviceDefinition != null)
                     {
-                        // Contextualize - resolve device type and associated farmbeats device instance
-                        var farmBeatsDeviceConfiguration = await farmBeatsClient.GetDevice(deviceDefinition.Name + deviceDefinition.Type);
-                       
+
                         // Convert to FarmBeats Telemetry Message
                         var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
-                        var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(deviceDefinition.Name, message);
-                        var telemetry = new FarmBeatsTelemetryModel(farmBeatsDeviceConfiguration.id, fbTelemetry);
+                        var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(deviceDefinition.name, message);
+                        var telemetry = new FarmBeatsTelemetryModel(deviceDefinition.id, fbTelemetry);
 
                         // Send to FarmBeats EventHub
                         var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
