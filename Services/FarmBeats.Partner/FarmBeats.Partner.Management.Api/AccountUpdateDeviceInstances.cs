@@ -27,6 +27,7 @@ namespace FarmBeats.Partner.Management.Api
             
             var config = executionContext.BuildConfiguraion();
             var account  = AccountConfigration.Load().First();
+            var devicedefinitions = DeviceDefinition.Load();
 
             var token = await Extensions.GetS2SAccessToken(account.ClientId, config[account.ClientSecretSettingName], account.Resource, account.Authority);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
@@ -39,7 +40,8 @@ namespace FarmBeats.Partner.Management.Api
                     var deviceModel = fb.GetDeviceModel(device.deviceModel).Result;
                     var deviceDetail = await fb.CreateDevice(new Device(Guid.NewGuid().ToString(), deviceModel.id, farm.id, new Location(0, 0), device.name + deviceModel.name));
 
-                    foreach (var sensor in device.sensors)
+                    var sensorModels = devicedefinitions.deviceModels.Single(x => x.name == deviceModel.name).sensorModels;
+                    foreach (var sensor in sensorModels)
                     {
                         var sensorModel = fb.GetSensorModel(sensor).Result;
                         await fb.CreateSensor(new Sensor(Guid.NewGuid().ToString(), sensorModel.id, deviceDetail.id, device.name + sensorModel.name));

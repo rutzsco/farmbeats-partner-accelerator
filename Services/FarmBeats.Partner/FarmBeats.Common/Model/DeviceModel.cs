@@ -28,5 +28,7 @@ namespace FarmBeats.Common.Model
         public string name { get; set; }
         public string description { get; set; }
 
+        public IEnumerable<string> sensorModels { get; set; }
+
     }
 }
