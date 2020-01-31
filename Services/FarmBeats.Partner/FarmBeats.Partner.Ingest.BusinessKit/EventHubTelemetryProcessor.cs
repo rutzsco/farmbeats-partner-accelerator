@@ -20,7 +20,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
 
         [FunctionName("EventHubTelemetryProcessor")]
         public static async Task Run([EventHubTrigger("Ingest", Connection = "EventHubInputConnectionString")] EventData[] events, 
-                                     [EventHub("sensor-partner-eh-00", Connection = "EventHubOutputConnectionString")]IAsyncCollector<string> outputEvents, ILogger log, ExecutionContext executionContext)
+                                     [EventHub("sensor-partner-eh-00", Connection = "EventHubOutputConnectionString")]IAsyncCollector<string> outputEvents, ILogger logger, ExecutionContext executionContext)
         {
             
             // Initialize dependancies
@@ -40,24 +40,31 @@ namespace FarmBeats.Partner.Ingest.BusinessKit
                 {
                     // Parse message
                     var messageBody = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-                    log.LogInformation($"Input Message: {messageBody} Property Keys: {string.Join(",", eventData.SystemProperties.Keys)}  Property Values: { string.Join(",", eventData.SystemProperties.Values)}");
+                    logger.LogInformation($"Input Message: {messageBody} Property Keys: {string.Join(",", eventData.SystemProperties.Keys)}  Property Values: { string.Join(",", eventData.SystemProperties.Values)}");
 
                     var message = JsonConvert.DeserializeObject<IndoorM1Telemetry>(messageBody);                 
                     var deviceId = (string)eventData.SystemProperties["iothub-connection-device-id"];
+                    var deviceDefinition = DeviceInstanceDefinition.All.SingleOrDefault(x => x.DeviceId == deviceId);
 
-                    // Contextualize - resolve device type and associated farmbeats device instance
-                    var deviceDefinition = DeviceInstanceDefinition.All.First(x => x.DeviceId == deviceId);
-                    var farmBeatsDeviceConfiguration = await farmBeatsClient.GetDevice(deviceDefinition.Name + deviceDefinition.Type);
+                    if (deviceDefinition != null)
+                    {
+                        // Contextualize - resolve device type and associated farmbeats device instance
+                        var farmBeatsDeviceConfiguration = await farmBeatsClient.GetDevice(deviceDefinition.Name + deviceDefinition.Type);
+                       
+                        // Convert to FarmBeats Telemetry Message
+                        var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
+                        var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(deviceDefinition.Name, message);
+                        var telemetry = new FarmBeatsTelemetryModel(farmBeatsDeviceConfiguration.id, fbTelemetry);
 
-                    // Convert to FarmBeats Telemetry Message
-                    var mapper = new IndoorM1DeviceInstanceDefinition(targetSensorConfiguration);
-                    var fbTelemetry = mapper.MapToFarmBeatsTelemetryModel(deviceDefinition.Name, message);
-                    var telemetry = new FarmBeatsTelemetryModel(farmBeatsDeviceConfiguration.id, fbTelemetry);
-                    
-                    // Send to FarmBeats EventHub
-                    var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                    log.LogInformation($"Output Message: {outMessage}");
-                    await outputEvents.AddAsync(outMessage);            
+                        // Send to FarmBeats EventHub
+                        var outMessage = JsonConvert.SerializeObject(telemetry, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                        logger.LogInformation($"Output Message: {outMessage}");
+                        await outputEvents.AddAsync(outMessage);
+                    }
+                    else
+                    {
+                        logger.LogWarning($"Unsuppored device - Id: {deviceId}");
+                    }
                 }
                 catch (Exception e)
                 {
