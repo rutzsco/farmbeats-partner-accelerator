@@ -8,9 +8,6 @@ trigger:
     include:
     - master
     - develop
-  paths:
-    include:
-    - Services/FarmBeats.Partner/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -22,14 +19,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
   inputs:
-    projects: 'Services/FarmBeats.Partner/FarmBeats.Partner.Ingest.BusinessKit/FarmBeats.Partner.Ingest.BusinessKit.csproj'
+    projects: '**/*.csproj'
     arguments: '--output publish_output --configuration Release'
 - task: DotNetCoreCLI@2
   displayName: 'Publish project'
   inputs:
     command: publish
     publishWebProjects: false
-    projects: 'Services/FarmBeats.Partner/FarmBeats.Partner.Ingest.BusinessKit/FarmBeats.Partner.Ingest.BusinessKit.csproj'
+    projects: '**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: App'
