@@ -5,7 +5,13 @@
     "productCode": "Grove-Soil-Moisture-001",
     "sensorMeasures": [
       {
-        "name": "soilmoisture",
+        "name": "reading1",
+        "dataType": "Double",
+        "type": "SoilMoisture",
+        "unit": "Percentage"
+      },
+      {
+        "name": "reading2",
         "dataType": "Double",
         "type": "SoilMoisture",
         "unit": "Percentage"
@@ -57,13 +63,7 @@
     "productCode": "Grove-Air-Tempurature-001",
     "sensorMeasures": [
       {
-        "name": "reading1",
-        "dataType": "Double",
-        "type": "AmbientTemperature",
-        "unit": "Fahrenheit"
-      },
-      {
-        "name": "reading2",
+        "name": "tempurature",
         "dataType": "Double",
         "type": "AmbientTemperature",
         "unit": "Fahrenheit"

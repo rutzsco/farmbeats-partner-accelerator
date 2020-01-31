@@ -66,7 +66,7 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
 
             var st5 = new SensorTelemetry();
             st5.id = _sensorsByName[deviceName + IndoorM1DeviceSensorMappings.AirTempurature].id;
-            st5.sensordata = new[] { new SensorData() { timestamp = timestamp, airHumidity = Convert.ToDouble(message.AirTemperatureF) } };
+            st5.sensordata = new[] { new SensorData() { timestamp = timestamp, temperature = Convert.ToDouble(message.AirTemperatureF) } };
 
             return new List<SensorTelemetry>() { st , st2 , st3, st4, st5 };
         }
