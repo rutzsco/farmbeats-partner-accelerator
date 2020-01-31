@@ -46,5 +46,9 @@ namespace FarmBeats.Partner.Ingest.BusinessKit.Model
         public double? airPressure { get; set; }
 
         public double? airHumidity { get; set; }
+
+        public double? reading1 { get; set; }
+
+        public double? reading2 { get; set; }
     }
 }
