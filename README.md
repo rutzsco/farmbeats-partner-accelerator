@@ -1,6 +1,6 @@
 # FarmBeats Partner Integration Accelerator
 
-This solution is intended to provide a reference implementaion of a FarmBeats partner integration. If consist of a  
+This solution is intended to provide a reference implementaion of a FarmBeats partner integration. It consist of a  
 
 
 ### Managment Service
