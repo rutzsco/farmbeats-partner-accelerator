@@ -9,4 +9,24 @@ The Managment service  is responsible for registering a device/sensor model coni
 
 ### Ingestion Implementation
 
-The Business Kit Ingestion service is responsible for ingesting telemetry into a target Azure FarmBeats deployment from a deployed BusinessKit device.
+The Business Kit Ingestion service is responsible for ingesting telemetry into a target Azure FarmBeats deployment from a deployed an IoT Central instance with the Business Kit device template.
+
+#### Configuration Settings
+
+'''json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "EventHubInputConnectionString": "",
+    "EventHubOutputConnectionString": "",
+    "FarmBeatsApiUrl": "https://fbdatahubwebsite.azurewebsites.net/",
+    "PartnerSpAuthority": "https://login.microsoftonline.com/microsoft.onmicrosoft.com",
+    "PartnerSpClientId": "",
+    "PartnerSpClientSecret": "",
+    "PartnerSpResource": ""
+  }
+}
+
+'''
