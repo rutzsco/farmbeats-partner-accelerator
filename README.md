@@ -13,7 +13,8 @@ The Business Kit Ingestion service is responsible for ingesting telemetry into a
 
 #### Configuration Settings
 
-'''json
+```json
+
 {
   "IsEncrypted": false,
   "Values": {
@@ -29,4 +30,4 @@ The Business Kit Ingestion service is responsible for ingesting telemetry into a
   }
 }
 
-'''
+```
